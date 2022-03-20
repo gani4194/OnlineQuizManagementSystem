@@ -10,11 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.quiz.model.Participates;
 
 @Repository
-public interface IParticipatesRepository extends JpaRepository<Participates, Integer> {
-	
-	public List<Participates> addParticipates(Integer participatesId);
+public interface IParticipatesRepository extends JpaRepository<Participates, Integer > {
+	/*public List<Participates> addParticipates(Integer participatesId);
 	
 	@Query("SELECT part FROM Participates part  WHERE part.participates_id>=:pri ")
-	public List<Participates> getById(@Param("pri") int participate_id);
-	
+	public List<Participates> getById(@Param("pri") int participates_id);*///used when @PostMapping({participatesId})
+
 }
