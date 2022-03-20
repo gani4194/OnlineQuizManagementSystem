@@ -6,32 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.quiz.dao.IParticipatesRepository;
-import com.quiz.model.Participates;
+import com.quiz.dao.IParticipantRepository;
+import com.quiz.model.Participant;
 
 
 @Service
-public class ParticipatesServiceImpl implements IParticipatesService{
+public class ParticipantServiceImpl implements IParticipantService{
 	@Autowired
-	private IParticipatesRepository participateRepo;
+	private IParticipantRepository participateRepo;
 	
-	public List<Participates> deleteParticipates(Integer participatesId) {
+	public List<Participant> deleteParticipates(Integer participatesId) {
 		participateRepo.deleteById(participatesId);
 		return  participateRepo.findAll();
 	}
 	
-	public List<Participates> updateParticipates(Participates participates) {
+	public List<Participant> updateParticipates(Participant participates) {
 		participateRepo.saveAndFlush(participates);
 		return  participateRepo.findAll();
 	}
 	
-	public Participates saveParticipates(Participates participates) {
+	public Participant saveParticipates(Participant participates) {
 		return participateRepo.save(participates);
 	}
 	
 	
 	@Override
-	public List<Participates> getAllParticipates() {
+	public List<Participant> getAllParticipates() {
 		// TODO Auto-generated method stub
 		return participateRepo.findAll();
 	}

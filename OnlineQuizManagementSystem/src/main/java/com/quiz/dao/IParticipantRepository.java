@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.quiz.model.Participates;
+import com.quiz.model.Participant;
 
 @Repository
-public interface IParticipatesRepository extends JpaRepository<Participates, Integer > {
+public interface IParticipantRepository extends JpaRepository<Participant, Integer > {
 	/*public List<Participates> addParticipates(Integer participatesId);
 	
 	@Query("SELECT part FROM Participates part  WHERE part.participates_id>=:pri ")

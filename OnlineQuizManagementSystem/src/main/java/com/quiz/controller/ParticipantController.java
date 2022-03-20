@@ -14,50 +14,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quiz.model.Participates;
-import com.quiz.service.IParticipatesService;
+import com.quiz.model.Participant;
+import com.quiz.service.IParticipantService;
 
 @RestController
 @RequestMapping("/api")
-public class ParticipatesController {
+public class ParticipantController {
 	@Autowired
-	private IParticipatesService partServices;
+	private IParticipantService partServices;
 
 	@GetMapping("/AllParticipates")
-	public ResponseEntity<List<Participates>> getAllParticipates() {
-		List<Participates> participate = partServices.getAllParticipates();
+	public ResponseEntity<List<Participant>> getAllParticipates() {
+		List<Participant> participate = partServices.getAllParticipates();
 		if (participate.isEmpty()) {
 			return new ResponseEntity("Sorry! Participate not available!", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Participates>>(participate, HttpStatus.OK);
+		return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/Participate/{participatesId}")
-	public ResponseEntity<List<Participates>> deleteProduct(@PathVariable("participatesId") Integer participatesId) {
-		List<Participates> participates = partServices.deleteParticipates(participatesId);
+	public ResponseEntity<List<Participant>> deleteProduct(@PathVariable("participatesId") Integer participatesId) {
+		List<Participant> participates = partServices.deleteParticipates(participatesId);
 		if (participates.isEmpty() || participates == null) {
 			return new ResponseEntity("Sorry! ParticipatesId not available!", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<List<Participates>>(participates, HttpStatus.OK);
+		return new ResponseEntity<List<Participant>>(participates, HttpStatus.OK);
 	}
 
 	@PutMapping("/Participate")
-	public ResponseEntity<List<Participates>> updateParticipates(@RequestBody Participates participates) {
-		List<Participates> participate = partServices.updateParticipates(participates);
+	public ResponseEntity<List<Participant>> updateParticipates(@RequestBody Participant participates) {
+		List<Participant> participate = partServices.updateParticipates(participates);
 		if (participate.isEmpty()) {
 			return new ResponseEntity("Sorry! Participates not available!", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<List<Participates>>(participate, HttpStatus.OK);
+		return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
 	}
     
 	@PostMapping("save/Participate")
-	public ResponseEntity<Participates> saveParticipates(@RequestBody Participates participates) {
-		Participates participate = partServices.saveParticipates(participates);
+	public ResponseEntity<Participant> saveParticipates(@RequestBody Participant participates) {
+		Participant participate = partServices.saveParticipates(participates);
 		if (participate == null) {
 			return new ResponseEntity("Sorry! Participates not available!", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Participates>(participate, HttpStatus.OK);
+		return new ResponseEntity<Participant>(participate, HttpStatus.OK);
 	}
 }
