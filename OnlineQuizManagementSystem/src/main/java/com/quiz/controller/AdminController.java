@@ -23,7 +23,11 @@ import com.quiz.service.IAdminService;
 public class AdminController {
 	@Autowired
 	IAdminService adminService;
-
+	// requests the controller to get the list of Admins
+	// URL:-
+	// http://localhost:8082/OnlineQuiz/Admin/getAllAdmins
+	
+	// requests the controller to get all the Admin
 	@GetMapping("/getAllAdmins")
 	public ResponseEntity<List<Admin>> getAllAdmins() {
 
@@ -34,20 +38,23 @@ public class AdminController {
 
 		return new ResponseEntity<List<Admin>>(admin, HttpStatus.OK);
 	}
-
+	
+    // requests the controller to add the Admin
 	@PostMapping("/addAdmin")
 	public Admin addAdmin(@RequestBody Admin admin) {
 
 		Admin addAdmin = adminService.addAdmin(admin);
 		return addAdmin;
 	}
-
+    
+	// requests the controller to update the Admin by Id
 	@PutMapping("/updateAdmin/{id}")
 	public String updateUser(@RequestBody Admin admin, @PathVariable int id) {
 		String updateAdmin = adminService.updateAdmin(admin, id);
 		return updateAdmin;
 	}
-
+    
+	// requests the controller to delete the Admin by Id
 	@DeleteMapping("/deleteAdmin/{adminId}")
 	public ResponseEntity<List<Admin>> deleteAdmin(@PathVariable("adminId") Integer adminId)
 			throws AdminIdNotFoundException {

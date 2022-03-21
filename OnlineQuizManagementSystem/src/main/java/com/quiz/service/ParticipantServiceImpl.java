@@ -14,6 +14,7 @@ public class ParticipantServiceImpl implements IParticipantService {
 	@Autowired
 	private IParticipantRepository participateRepo;
 
+	// method implementing to delete Participant by Participant Id
 	public List<Participant> deleteParticipates(Integer participatesId) throws ParticipantIdNotFoundException {
 		try {
 			participateRepo.deleteById(participatesId);
@@ -24,15 +25,18 @@ public class ParticipantServiceImpl implements IParticipantService {
 		}
 	}
 
+	// method implementing to update Participant.
 	public List<Participant> updateParticipates(Participant participates) {
 		participateRepo.saveAndFlush(participates);
 		return participateRepo.findAll();
 	}
 
+	// method implementing to add Participant
 	public Participant saveParticipates(Participant participates) {
 		return participateRepo.save(participates);
 	}
 
+	// method implementing to get all the Participants
 	@Override
 	public List<Participant> getAllParticipates() {
 		// TODO Auto-generated method stub

@@ -15,17 +15,21 @@ public class QuizServiceImpl implements IQuizService{
 	@Autowired
 	private IQuizRepository quizRepo;
 	
+
+
+
 	public Quiz saveQuiz(Quiz quiz){
 		System.out.println("inside save");
 		return quizRepo.save(quiz);
 	}
-
+    // method implementing to get all the Quiz
 	@Override
 	public List<Quiz> getAllQuiz() {
 		// TODO Auto-generated method stub
 		return quizRepo.findAll() ;
 	}
 	
+	// method implementing to get quiz by Quiz Id
 	@Override
 	public Quiz findQuiz(Integer quizId) throws QuizIdNotFoundException {
 		try {

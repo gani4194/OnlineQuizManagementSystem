@@ -7,18 +7,22 @@ import javax.persistence.Id;
 
 
 import javax.persistence.Table;
+/**
+* The Class Question is the Entity representing questions_table in database
+*
+* @author Ganesh
+*
+*/
 
 @Entity
 @Table(name= "questions_table")
 public class Question {
 	@Id
 	@Column(name="question_no")
-     private int questionNo; //(unique) Primary Key
+     private int questionNo; 
 	 
-	//@ManyToOne
-	//@JoinColumn(name="categories_id")
 	@Column(name="category_id")
-     private int categeoryId; //(foreign key)
+     private int categeoryId; 
 
 	@Column(name="question_title")
      private String questionTitle;
@@ -41,10 +45,28 @@ public class Question {
 	@Column(name="q_marks")
      private int qMarks;
      
+	/**
+	 * Question default Constructor
+	 */
+	
      public Question() {
     	 
      }
-
+     
+     /**
+ 	 * Participant Constructor with fields as parameters
+ 	 * 
+ 	 * @param questionNo      the question No
+ 	 * @param categeoryId     the Category Id
+ 	 * @param questionTitle   the Question Title
+ 	 * @param option1         the Question Option
+ 	 * @param option2         the Question Option
+ 	 * @param option3         the Question Option
+ 	 * @param option4         the Question Option
+ 	 * @param correctAnswer   the Question Correct Answer
+ 	 * @param qMarks          the Question Marks 
+ 	 */
+     
 	public Question(int questionNo, int categeoryId, String questionTitle, String option1, String option2,
 			String option3, String option4, String correctAnswer, int qMarks) {
 		super();

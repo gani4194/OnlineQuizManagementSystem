@@ -23,6 +23,9 @@ public class CategoriesController {
 	@Autowired
 	private ICategoriesService categoriesService;
 
+	// requests the controller to get the list of Categories
+	// URL:-
+	// http://localhost:8082/OnlineQuiz/Category/getAllCategories
 	@GetMapping("/getAllCategories")
 	public ResponseEntity<List<Categories>> getAllCategories() {
 		List<Categories> categories = categoriesService.getAllCategories();
@@ -33,6 +36,7 @@ public class CategoriesController {
 		return new ResponseEntity<List<Categories>>(categories, HttpStatus.OK);
 	}
 
+	// requests the controller to save the Categories
 	@PostMapping("/addCategory")
 	public ResponseEntity<Categories> saveCategories(@RequestBody Categories categories) {
 		categories = categoriesService.saveCategories(categories);
@@ -43,13 +47,14 @@ public class CategoriesController {
 		return new ResponseEntity<Categories>(categories, HttpStatus.OK);
 	}
 
+	// request the controller to Delete the Caregories by category Id
 	@DeleteMapping("/deleteCategory/{categoriesId}")
-	public ResponseEntity<List<Categories>> deleteCategories(@PathVariable("categoriesId") Integer categoriesId) 
+	public ResponseEntity<List<Categories>> deleteCategories(@PathVariable("categoriesId") Integer categoriesId)
 			throws CategoryIdNotFoundException {
 		List<Categories> existingCategories = categoriesService.getAllCategories();
-		for(Categories i: existingCategories ) {
-			if(i.getCategories_id() == categoriesId) {
-				List<Categories> category=categoriesService.deleteCategories(categoriesId);
+		for (Categories i : existingCategories) {
+			if (i.getCategories_id() == categoriesId) {
+				List<Categories> category = categoriesService.deleteCategories(categoriesId);
 				return new ResponseEntity<List<Categories>>(category, HttpStatus.OK);
 			}
 		}

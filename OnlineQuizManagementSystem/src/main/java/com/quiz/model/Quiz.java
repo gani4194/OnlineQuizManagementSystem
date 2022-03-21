@@ -12,6 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+/**
+* The Class quiz is the Entity representing quizes in database
+*
+* @author Suraj
+*
+*/
 
 @Entity
 @Table(name = "quizes")
@@ -28,17 +34,33 @@ public class Quiz {
 	private Time quizEndTime;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id") // foriegn key
+	@JoinColumn(name = "category_id") 
 	private Categories categoryid;
 
 	@Column(name = "participates_id")
-	private int quizParticipateId; // (f k)
+	private int quizParticipateId; 
 	@Column(name = "score")
 	private int score;
 
+	/**
+	 * Quiz default Constructor
+	 */
+	
 	public Quiz() {
 
 	}
+	
+	/**
+	* Quiz Constructor with fields as parameters
+	*
+	* @param quizId               the quiz Id
+	* @param quizDate             Date of quiz
+    * @param quizStartTime        start time of quiz
+    * @param quizEndTime          End time of the quiz  
+    * @param categoryId           the quiz category Id
+    * @param quizParticipateId    the participate id whose going to give quiz
+    * @param score                the score of quiz
+	*/
 
 	public Quiz(int quizId, Date quizDate, Time quizStartTime, Time quizEndTime, Categories categoryid,
 			int quizParticipateId, int score) {

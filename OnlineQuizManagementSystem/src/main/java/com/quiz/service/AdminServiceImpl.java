@@ -14,12 +14,14 @@ public class AdminServiceImpl implements IAdminService {
 	@Autowired
 	IAdminRepository adminRepo;
 
+	// method implementing to add the Admins
 	@Override
 	public Admin addAdmin(Admin admin) {
 		Admin adminSaved = adminRepo.save(admin);
 		return adminSaved;
 	}
 
+	// method implementing to update admin by Id
 	@Override
 	public String updateAdmin(Admin admin, int id) {
 		Admin updateAdmin = adminRepo.findById(id).get();
@@ -32,6 +34,7 @@ public class AdminServiceImpl implements IAdminService {
 		return " Admin Role Updated";
 	}
 
+	// method implementing to delete admin by Id
 	public List<Admin> deleteAdmin(Integer adminId) throws AdminIdNotFoundException {
 		try {
 			adminRepo.deleteById(adminId);
@@ -42,6 +45,7 @@ public class AdminServiceImpl implements IAdminService {
 		}
 	}
 
+	// method implementing to get all the Admins
 	@Override
 	public List<Admin> getAllAdmins() {
 // TODO Auto-generated method stub

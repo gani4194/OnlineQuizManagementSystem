@@ -5,19 +5,34 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The Class Admin is the Entity representing admin_table in database
+ *
+ * @author Maltesh
+ *
+ */
 @Entity
 @Table(name = "admin_table")
 public class Admin {
-	
+
 	@Id
-	@Column(name="admin_id")
+	@Column(name = "admin_id")
 	private int adminId;
-	
-	@Column(name="admin_name")
+
+	@Column(name = "admin_name")
 	private String adminName;
-	
-	@Column(name="admin_password")
+
+	@Column(name = "admin_password")
 	private String adminPassword;
+
+	/**
+	 * Admin Constructor with fields as parameters
+	 *
+	 * @param adminId       the admin Id
+	 * @param adminName     the name of admin
+	 * @param adminPassword the password of admin
+	 * 
+	 */
 
 	public Admin(int adminId, String adminName, String adminPassword) {
 		super();
@@ -25,10 +40,14 @@ public class Admin {
 		this.adminName = adminName;
 		this.adminPassword = adminPassword;
 	}
-     
+
+	/**
+	 * Admin default Constructor
+	 */
+
 	public Admin() {
 	}
-	
+
 	public int getAdminId() {
 		return adminId;
 	}

@@ -22,6 +22,10 @@ public class QuizController {
 	@Autowired
 	private IQuizService partServices;
 
+	// requests the controller to get the list of Quiz
+	// URL:-
+	// http://localhost:8082/OnlineQuiz/Quiz/getAllQuiz
+
 	@GetMapping("/getAllQuizes")
 	public ResponseEntity<List<Quiz>> getAllQuiz() {
 
@@ -32,10 +36,10 @@ public class QuizController {
 
 		return new ResponseEntity<List<Quiz>>(quiz, HttpStatus.OK);
 	}
-	
+
+	// requests the controller to get the quiz by quizID
 	@GetMapping("/getQuiz/{quizId}")
-	public ResponseEntity<Quiz> findQuizById(@PathVariable("quizId") Integer quizId)
-			throws QuizIdNotFoundException {
+	public ResponseEntity<Quiz> findQuizById(@PathVariable("quizId") Integer quizId) throws QuizIdNotFoundException {
 		List<Quiz> existingQuiz = partServices.getAllQuiz();
 		for (Quiz i : existingQuiz) {
 			if (i.getQuizId() == quizId) {
@@ -43,9 +47,10 @@ public class QuizController {
 				return new ResponseEntity<Quiz>(quiz, HttpStatus.OK);
 			}
 		}
-		throw new QuizIdNotFoundException("Quiz with "+ quizId + " mentioned not Present in database");
+		throw new QuizIdNotFoundException("Quiz with " + quizId + " mentioned not Present in database");
 	}
 
+	// requests the controller to add the Quiz
 	@PostMapping("/addQuiz")
 	public ResponseEntity<Quiz> saveQuiz(@RequestBody Quiz quiz) {
 		quiz = partServices.saveQuiz(quiz);

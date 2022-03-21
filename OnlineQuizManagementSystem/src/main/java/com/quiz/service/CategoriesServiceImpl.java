@@ -14,14 +14,17 @@ public class CategoriesServiceImpl implements ICategoriesService {
 	@Autowired
 	private ICategoriesJpaRepository categoriesRepo;
 
+	// method implementing to get all the Categories
 	public List<Categories> getAllCategories() {
 		return categoriesRepo.findAll();
 	}
 
+	// method implementing to save all the Categories
 	public Categories saveCategories(Categories categories) {
 		return categoriesRepo.save(categories);
 	}
 
+	// method implementing to delete Categories by category Id
 	public List<Categories> deleteCategories(Integer categoriesId) throws CategoryIdNotFoundException {
 		try {
 			categoriesRepo.deleteById(categoriesId);
