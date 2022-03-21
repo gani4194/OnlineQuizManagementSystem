@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz.exception.AdminIdNotFoundException;
 import com.quiz.model.Admin;
 import com.quiz.service.IAdminService;
 
@@ -47,9 +48,21 @@ public class AdminController {
 		return updateAdmin;
 	}
 
-	@DeleteMapping("/delete/{id}")
-	public String deleteUser(@PathVariable int id) {
-		String deleteAdmin = adminService.deleteAdmin(id);
-		return deleteAdmin;
+//	@DeleteMapping("/delete/{id}")
+//	public String deleteUser(@PathVariable int id) throws AdminIdNotFoundException{
+//		String deleteAdmin = adminService.deleteAdmin(id);
+//		return deleteAdmin;
+//	}
+	@DeleteMapping("/Admin/{adminId}")
+	public ResponseEntity<List<Admin>> deleteAdmin(@PathVariable("adminId") Integer adminId)
+			throws AdminIdNotFoundException {
+		List<Admin> existingAdmin = adminService.getAllAdmins();
+		for (Admin i : existingAdmin) {
+			if (i.getAdminId() == adminId) {
+				List<Admin> admin = adminService.deleteAdmin(adminId);
+				return new ResponseEntity<List<Admin>>(admin, HttpStatus.OK);
+			}
+		}
+		throw new AdminIdNotFoundException("Admin not Present in database");
 	}
 }

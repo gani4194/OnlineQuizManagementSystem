@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz.exception.CategoryIdNotFoundException;
 import com.quiz.model.Categories;
 import com.quiz.service.ICategoriesService;
 
@@ -43,12 +44,15 @@ public class CategoriesController {
 	}
 
 	@DeleteMapping("/categories/{categoriesId}")
-	public ResponseEntity<List<Categories>> deleteCategories(@PathVariable("categoriesId") Integer categoriesId) {
-		List<Categories> categories = categoriesService.deleteCategories(categoriesId);
-		if (categories.isEmpty() || categories == null) {
-			return new ResponseEntity("Sorry! CategoriesId not available!", HttpStatus.NOT_FOUND);
-
+	public ResponseEntity<List<Categories>> deleteCategories(@PathVariable("categoriesId") Integer categoriesId) 
+			throws CategoryIdNotFoundException {
+		List<Categories> existingCategories = categoriesService.getAllCategories();
+		for(Categories i: existingCategories ) {
+			if(i.getCategories_id() == categoriesId) {
+				List<Categories> category=categoriesService.deleteCategories(categoriesId);
+				return new ResponseEntity<List<Categories>>(category, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Categories>>(categories, HttpStatus.OK);
+		throw new CategoryIdNotFoundException("Category not Present in database");
 	}
 }

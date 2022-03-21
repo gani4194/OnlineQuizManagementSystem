@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz.exception.ParticipantIdNotFoundException;
 import com.quiz.model.Participant;
 import com.quiz.service.IParticipantService;
 
@@ -33,13 +34,15 @@ public class ParticipantController {
 	}
 
 	@DeleteMapping("/Participate/{participatesId}")
-	public ResponseEntity<List<Participant>> deleteProduct(@PathVariable("participatesId") Integer participatesId) {
-		List<Participant> participates = partServices.deleteParticipates(participatesId);
-		if (participates.isEmpty() || participates == null) {
-			return new ResponseEntity("Sorry! ParticipatesId not available!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Participant>> deleteParticipates(@PathVariable("participatesId") Integer participatesId) throws ParticipantIdNotFoundException {
+		List<Participant> existingParticipate = partServices.getAllParticipates();       //deleteParticipates(participatesId);
+		for(Participant i : existingParticipate) {
+			if(i.getParticipatesId()==participatesId) {
+				List<Participant> participate= partServices.deleteParticipates(participatesId);
+				return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
+			}
 		}
-
-		return new ResponseEntity<List<Participant>>(participates, HttpStatus.OK);
+		throw new ParticipantIdNotFoundException("Participate not Present in database");
 	}
 
 	@PutMapping("/Participate")
@@ -53,11 +56,14 @@ public class ParticipantController {
 	}
     
 	@PostMapping("save/Participate")
-	public ResponseEntity<Participant> saveParticipates(@RequestBody Participant participates) {
+	public ResponseEntity<Participant> saveParticipates(@RequestBody Participant participates)  {
 		Participant participate = partServices.saveParticipates(participates);
 		if (participate == null) {
+			
 			return new ResponseEntity("Sorry! Participates not available!", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Participant>(participate, HttpStatus.OK);
 	}
+	
+	
 }

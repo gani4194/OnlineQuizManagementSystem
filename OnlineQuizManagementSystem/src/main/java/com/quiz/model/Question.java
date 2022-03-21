@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name= "questions_table")
-public class Questions {
+public class Question {
 	@Id
 	@Column(name="question_no")
      private int questionNo; //(unique) Primary Key
@@ -41,11 +41,11 @@ public class Questions {
 	@Column(name="q_marks")
      private int qMarks;
      
-     public Questions() {
+     public Question() {
     	 
      }
 
-	public Questions(int questionNo, int categeoryId, String questionTitle, String option1, String option2,
+	public Question(int questionNo, int categeoryId, String questionTitle, String option1, String option2,
 			String option3, String option4, String correctAnswer, int qMarks) {
 		super();
 		this.questionNo = questionNo;

@@ -2,7 +2,6 @@ package com.quiz.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,11 +9,11 @@ import javax.persistence.Table;
 @Table(name="category")
 public class Categories {
 	@Id
-	
+
 	@Column(name="category_id")
-	private int categories_id;
+	private int categories_id;     //categoryId
 	@Column(name="category_name")
-	private String categories_name;
+	private String categories_name;    //categoryName
 	
 
 public Categories() {

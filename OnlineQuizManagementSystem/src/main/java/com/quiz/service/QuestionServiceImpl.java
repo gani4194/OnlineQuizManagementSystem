@@ -7,28 +7,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.quiz.dao.IQuestionRepository;
-import com.quiz.model.Questions;
+import com.quiz.exception.QuestionNoNotFoundException;
+import com.quiz.model.Question;
 
 @Service
 public class QuestionServiceImpl implements IQuestionService {
 	@Autowired
 	private IQuestionRepository questionRepository;
 
-	public List<Questions> getAllQuestion() { // get all Q
+	public List<Question> getAllQuestion() { // get all Q
 		return questionRepository.findAll();
 	}
 
-	public Questions findQuestion(Integer questionNo) { // find Q by No
-		Optional<Questions> ques = questionRepository.findById(questionNo);
-		return ques.get();
+	public Question findQuestion(Integer questionNo) throws QuestionNoNotFoundException  { // find Q by No
+      try {
+    	  Optional<Question> questionCollect=questionRepository.findById(questionNo);
+    	  return questionCollect.get();
+      }
+      catch (Exception e) {
+    	  System.out.println("Inside Implementation");
+    	  throw new QuestionNoNotFoundException("Question is Not Present in Database..!");
+      }
+		
+		//		Optional<Question> ques = questionRepository.findById(questionNo);
+//		return ques.get();
 	}
 
-	public List<Questions> deleteQuestion(Integer questionNo) {
+	public List<Question> deleteQuestion(Integer questionNo) {
 		questionRepository.deleteById(questionNo);
 		return questionRepository.  findAll();
 	}
 
-	public Questions saveQuestion(Questions question) {
+	public Question saveQuestion(Question question) {
 		return questionRepository.save(question);
 	}
 

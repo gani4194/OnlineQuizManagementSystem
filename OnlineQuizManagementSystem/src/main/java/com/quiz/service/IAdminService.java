@@ -2,7 +2,9 @@ package com.quiz.service;
 
 import java.util.List;
 
+import com.quiz.exception.AdminIdNotFoundException;
 import com.quiz.model.Admin;
+
 
 public interface IAdminService {
 
@@ -12,5 +14,5 @@ public interface IAdminService {
 
 	String updateAdmin(Admin admin, int id);
 
-	String deleteAdmin(int id);
+	public List<Admin> deleteAdmin(Integer adminId) throws AdminIdNotFoundException;
 }

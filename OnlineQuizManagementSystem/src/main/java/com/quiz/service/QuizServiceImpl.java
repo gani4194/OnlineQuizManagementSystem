@@ -1,11 +1,13 @@
 package com.quiz.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.quiz.dao.IQuizRepository;
+import com.quiz.exception.QuizIdNotFoundException;
 import com.quiz.model.Quiz;
 
 @Service
@@ -22,5 +24,17 @@ public class QuizServiceImpl implements IQuizService{
 	public List<Quiz> getAllQuiz() {
 		// TODO Auto-generated method stub
 		return quizRepo.findAll() ;
+	}
+	
+	@Override
+	public Quiz findQuiz(Integer quizId) throws QuizIdNotFoundException {
+		try {
+			Optional<Quiz> quizCollect = quizRepo.findById(quizId);
+			return quizCollect.get();
+		}
+		catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new QuizIdNotFoundException("Quiz is not Present in Database");
+		}
 	}
 }

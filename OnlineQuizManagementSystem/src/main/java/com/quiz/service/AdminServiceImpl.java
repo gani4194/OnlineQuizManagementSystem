@@ -1,10 +1,12 @@
 package com.quiz.service;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.quiz.dao.IAdminRepository;
+import com.quiz.exception.AdminIdNotFoundException;
 import com.quiz.model.Admin;
 
 @Service
@@ -30,16 +32,14 @@ public class AdminServiceImpl implements IAdminService {
 		return " Admin Role Updated";
 	}
 
-	@Override
-	public String deleteAdmin(int id) {
-		Admin admin = adminRepo.findById(id).get();
-		if (admin == null) {
-			return "Admin not found";
+	public List<Admin> deleteAdmin(Integer adminId) throws AdminIdNotFoundException {
+		try {
+			adminRepo.deleteById(adminId);
+			return adminRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new AdminIdNotFoundException("Admin is not present in Database");
 		}
-
-		adminRepo.deleteById(id);
-
-		return "Admin deleted";
 	}
 
 	@Override
