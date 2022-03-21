@@ -12,35 +12,43 @@ import com.quiz.model.Participant;
 @Service
 public class ParticipantServiceImpl implements IParticipantService {
 	@Autowired
-	private IParticipantRepository participateRepo;
+	private IParticipantRepository participantRepo;
 
 	// method implementing to delete Participant by Participant Id
-	public List<Participant> deleteParticipates(Integer participatesId) throws ParticipantIdNotFoundException {
+	public List<Participant> deleteParticipant(Integer participantId) throws ParticipantIdNotFoundException {
 		try {
-			participateRepo.deleteById(participatesId);
-			return participateRepo.findAll();
+			participantRepo.deleteById(participantId);
+			return participantRepo.findAll();
 		} catch (Exception e) {
-			System.out.println("Inside Implementation");
-			throw new ParticipantIdNotFoundException("Participate is not present in Database");
+			throw new ParticipantIdNotFoundException("Participant is not present in Database");
 		}
 	}
 
 	// method implementing to update Participant.
-	public List<Participant> updateParticipates(Participant participates) {
-		participateRepo.saveAndFlush(participates);
-		return participateRepo.findAll();
+	public List<Participant> updateParticipant(Participant participant) {
+		participantRepo.saveAndFlush(participant);
+		return participantRepo.findAll();
 	}
 
 	// method implementing to add Participant
-	public Participant saveParticipates(Participant participates) {
-		return participateRepo.save(participates);
+	public Participant saveParticipant(Participant participant) {
+		return participantRepo.save(participant);
 	}
 
 	// method implementing to get all the Participants
 	@Override
-	public List<Participant> getAllParticipates() {
-		// TODO Auto-generated method stub
-		return participateRepo.findAll();
+	public List<Participant> getAllParticipant() {
+		return participantRepo.findAll();
+	}
+
+	@Override
+	public Participant loginParticipant(int participantId) throws ParticipantIdNotFoundException {
+		try {
+			Participant findById = participantRepo.findById(participantId).get();
+			return findById;
+		} catch (Exception e) {
+			throw new ParticipantIdNotFoundException("Participant not found");
+		}
 	}
 
 }

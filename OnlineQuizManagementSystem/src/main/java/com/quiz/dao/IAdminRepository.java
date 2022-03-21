@@ -8,4 +8,5 @@ import com.quiz.model.Admin;
 @Repository
 public interface IAdminRepository extends JpaRepository<Admin, Integer> {
 
+	
 }

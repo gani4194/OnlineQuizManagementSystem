@@ -11,33 +11,28 @@ import com.quiz.exception.QuizIdNotFoundException;
 import com.quiz.model.Quiz;
 
 @Service
-public class QuizServiceImpl implements IQuizService{
+public class QuizServiceImpl implements IQuizService {
 	@Autowired
 	private IQuizRepository quizRepo;
-	
 
-
-
-	public Quiz saveQuiz(Quiz quiz){
+	public Quiz saveQuiz(Quiz quiz) {
 		System.out.println("inside save");
 		return quizRepo.save(quiz);
 	}
-    // method implementing to get all the Quiz
+
+	// method implementing to get all the Quiz
 	@Override
 	public List<Quiz> getAllQuiz() {
-		// TODO Auto-generated method stub
-		return quizRepo.findAll() ;
+		return quizRepo.findAll();
 	}
-	
+
 	// method implementing to get quiz by Quiz Id
 	@Override
 	public Quiz findQuiz(Integer quizId) throws QuizIdNotFoundException {
 		try {
 			Optional<Quiz> quizCollect = quizRepo.findById(quizId);
 			return quizCollect.get();
-		}
-		catch (Exception e) {
-			System.out.println("Inside Implementation");
+		} catch (Exception e) {
 			throw new QuizIdNotFoundException("Quiz is not Present in Database");
 		}
 	}

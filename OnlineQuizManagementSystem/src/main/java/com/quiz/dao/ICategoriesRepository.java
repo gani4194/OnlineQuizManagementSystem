@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.quiz.model.Categories;
 @Repository
 
-public interface ICategoriesJpaRepository extends JpaRepository<Categories, Integer> {
+public interface ICategoriesRepository extends JpaRepository<Categories, Integer> {
 	
 	
 	

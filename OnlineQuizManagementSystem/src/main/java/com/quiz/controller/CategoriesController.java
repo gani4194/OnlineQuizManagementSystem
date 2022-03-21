@@ -24,7 +24,6 @@ public class CategoriesController {
 	private ICategoriesService categoriesService;
 
 	// requests the controller to get the list of Categories
-	// URL:-
 	// http://localhost:8082/OnlineQuiz/Category/getAllCategories
 	@GetMapping("/getAllCategories")
 	public ResponseEntity<List<Categories>> getAllCategories() {
@@ -32,11 +31,11 @@ public class CategoriesController {
 		if (categories.isEmpty()) {
 			return new ResponseEntity("Sorry! Categories not available!", HttpStatus.NOT_FOUND);
 		}
-
-		return new ResponseEntity<List<Categories>>(categories, HttpStatus.OK);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 
 	// requests the controller to save the Categories
+	// http://localhost:8082/OnlineQuiz/Category/addCategory
 	@PostMapping("/addCategory")
 	public ResponseEntity<Categories> saveCategories(@RequestBody Categories categories) {
 		categories = categoriesService.saveCategories(categories);
@@ -44,18 +43,19 @@ public class CategoriesController {
 			return new ResponseEntity("Sorry! Categories not available!", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<Categories>(categories, HttpStatus.OK);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 
 	// request the controller to Delete the Caregories by category Id
+	// http://localhost:8082/OnlineQuiz/Category/deleteCategory/
 	@DeleteMapping("/deleteCategory/{categoriesId}")
 	public ResponseEntity<List<Categories>> deleteCategories(@PathVariable("categoriesId") Integer categoriesId)
 			throws CategoryIdNotFoundException {
 		List<Categories> existingCategories = categoriesService.getAllCategories();
 		for (Categories i : existingCategories) {
-			if (i.getCategories_id() == categoriesId) {
+			if (i.getCategoriesId() == categoriesId) {
 				List<Categories> category = categoriesService.deleteCategories(categoriesId);
-				return new ResponseEntity<List<Categories>>(category, HttpStatus.OK);
+				return new ResponseEntity<>(category, HttpStatus.OK);
 			}
 		}
 		throw new CategoryIdNotFoundException("Category not Present in database");

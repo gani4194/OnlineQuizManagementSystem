@@ -1,72 +1,71 @@
 package com.quiz.model;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
 import javax.persistence.Table;
+
 /**
-* The Class Question is the Entity representing questions_table in database
-*
-* @author Ganesh
-*
-*/
+ * The Class Question is the Entity representing questions_table in database
+ *
+ * @author Ganesh Pawar
+ *
+ */
 
 @Entity
-@Table(name= "questions_table")
+@Table(name = "questions_table")
 public class Question {
 	@Id
-	@Column(name="question_no")
-     private int questionNo; 
-	 
-	@Column(name="category_id")
-     private int categeoryId; 
+	@Column(name = "question_no")
+	private int questionNo;
 
-	@Column(name="question_title")
-     private String questionTitle;
-	
-	@Column(name="option_1")
-     private String option1;
-	
-	@Column(name="option_2")
-     private String option2;
-	
-	@Column(name="option_3")
-     private String option3;
-	
-	@Column(name="option_4")
-     private String option4;
-	
-	@Column(name="correct_answer")
-     private String correctAnswer;
-	
-	@Column(name="q_marks")
-     private int qMarks;
-     
+	@Column(name = "category_id")
+	private int categeoryId;
+
+	@Column(name = "question_title")
+	private String questionTitle;
+
+	@Column(name = "option_1")
+	private String option1;
+
+	@Column(name = "option_2")
+	private String option2;
+
+	@Column(name = "option_3")
+	private String option3;
+
+	@Column(name = "option_4")
+	private String option4;
+
+	@Column(name = "correct_answer")
+	private String correctAnswer;
+
+	@Column(name = "q_marks")
+	private int qMarks;
+
 	/**
 	 * Question default Constructor
 	 */
-	
-     public Question() {
-    	 
-     }
-     
-     /**
- 	 * Participant Constructor with fields as parameters
- 	 * 
- 	 * @param questionNo      the question No
- 	 * @param categeoryId     the Category Id
- 	 * @param questionTitle   the Question Title
- 	 * @param option1         the Question Option
- 	 * @param option2         the Question Option
- 	 * @param option3         the Question Option
- 	 * @param option4         the Question Option
- 	 * @param correctAnswer   the Question Correct Answer
- 	 * @param qMarks          the Question Marks 
- 	 */
-     
+
+	public Question() {
+
+	}
+
+	/**
+	 * Participant Constructor with fields as parameters
+	 * 
+	 * @param questionNo    the question No
+	 * @param categeoryId   the Category Id
+	 * @param questionTitle the Question Title
+	 * @param option1       the Question Option
+	 * @param option2       the Question Option
+	 * @param option3       the Question Option
+	 * @param option4       the Question Option
+	 * @param correctAnswer the Question Correct Answer
+	 * @param qMarks        the Question Marks
+	 */
+
 	public Question(int questionNo, int categeoryId, String questionTitle, String option1, String option2,
 			String option3, String option4, String correctAnswer, int qMarks) {
 		super();
@@ -159,5 +158,5 @@ public class Question {
 				+ questionTitle + ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3
 				+ ", option4=" + option4 + ", correctAnswer=" + correctAnswer + ", qMarks=" + qMarks + "]";
 	}
-	
+
 }

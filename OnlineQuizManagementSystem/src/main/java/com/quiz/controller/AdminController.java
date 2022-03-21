@@ -23,11 +23,9 @@ import com.quiz.service.IAdminService;
 public class AdminController {
 	@Autowired
 	IAdminService adminService;
-	// requests the controller to get the list of Admins
-	// URL:-
-	// http://localhost:8082/OnlineQuiz/Admin/getAllAdmins
-	
+
 	// requests the controller to get all the Admin
+	// http://localhost:8082/OnlineQuiz/Admin/getAllAdmins
 	@GetMapping("/getAllAdmins")
 	public ResponseEntity<List<Admin>> getAllAdmins() {
 
@@ -35,26 +33,26 @@ public class AdminController {
 		if (admin.isEmpty()) {
 			return new ResponseEntity("Sorry! Admin not available!", HttpStatus.NOT_FOUND);
 		}
-
 		return new ResponseEntity<List<Admin>>(admin, HttpStatus.OK);
 	}
-	
-    // requests the controller to add the Admin
+
+	// requests the controller to add the Admin
+	// http://localhost:8082/OnlineQuiz/Admin/addAdmin
 	@PostMapping("/addAdmin")
 	public Admin addAdmin(@RequestBody Admin admin) {
 
-		Admin addAdmin = adminService.addAdmin(admin);
-		return addAdmin;
+		return adminService.addAdmin(admin);
 	}
-    
+
 	// requests the controller to update the Admin by Id
+	// http://localhost:8082/OnlineQuiz/Admin/updateAdmin
 	@PutMapping("/updateAdmin/{id}")
 	public String updateUser(@RequestBody Admin admin, @PathVariable int id) {
-		String updateAdmin = adminService.updateAdmin(admin, id);
-		return updateAdmin;
+		return adminService.updateAdmin(admin, id);
 	}
-    
+
 	// requests the controller to delete the Admin by Id
+	// http://localhost:8082/OnlineQuiz/Admin/deleteAdmin
 	@DeleteMapping("/deleteAdmin/{adminId}")
 	public ResponseEntity<List<Admin>> deleteAdmin(@PathVariable("adminId") Integer adminId)
 			throws AdminIdNotFoundException {
@@ -66,5 +64,19 @@ public class AdminController {
 			}
 		}
 		throw new AdminIdNotFoundException("Admin not Present in database");
+	}
+
+	// requests the controller to log in Admin by Id
+	// http://localhost:8082/OnlineQuiz/Admin/checklogin
+	@GetMapping("/checklogin/{adminId}")
+	public ResponseEntity<Admin> checkLogin(@PathVariable("adminId") int admin) throws AdminIdNotFoundException {
+		Admin checklogin = adminService.loginAdmin(admin);
+		if (checklogin == null) {
+			return new ResponseEntity("Login Failed!", HttpStatus.NOT_FOUND);
+		} else if (checklogin.getAdminId() == admin) {
+			return new ResponseEntity("Login Successful!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity("user is not an admin", HttpStatus.NOT_FOUND);
+		}
 	}
 }

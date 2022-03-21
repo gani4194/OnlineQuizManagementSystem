@@ -18,9 +18,9 @@ public class Categories {
 	@Id
 
 	@Column(name = "category_id")
-	private int categories_id; // categoryId
+	private int categoriesId;
 	@Column(name = "category_name")
-	private String categories_name; // categoryName
+	private String categoriesName;
 
 	/**
 	 * Categories default Constructor
@@ -29,39 +29,37 @@ public class Categories {
 	public Categories() {
 
 	}
-	
+
 	/**
 	 * Course Constructor with fields as parameters
 	 * 
-	 * @param categoryId       the category  Id
-	 * @param categoryName     the name of category       
+	 * @param categoryId   the category Id
+	 * @param categoryName the name of category
 	 */
-
-	public Categories(int categories_id, String categories_name) {
-
-		this.categories_id = categories_id;
-		this.categories_name = categories_name;
+	public Categories(int categoriesId, String categoriesName) {
+		super();
+		this.categoriesId = categoriesId;
+		this.categoriesName = categoriesName;
 	}
 
-	public int getCategories_id() {
-		return categories_id;
+	public int getCategoriesId() {
+		return categoriesId;
 	}
 
-	public void setCategories_id(int categories_id) {
-		this.categories_id = categories_id;
+	public void setCategoriesId(int categoriesId) {
+		this.categoriesId = categoriesId;
 	}
 
-	public String getCategories_name() {
-		return categories_name;
+	public String getCategoriesName() {
+		return categoriesName;
 	}
 
-	public void setCategories_name(String categories_name) {
-		this.categories_name = categories_name;
+	public void setCategoriesName(String categoriesName) {
+		this.categoriesName = categoriesName;
 	}
-
-	@Override
-	public String toString() {
-		return "Categories [categories_id=" + categories_id + ", categories_name=" + categories_name + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Categories [categoriesId=" + categoriesId + ", categoriesName=" + categoriesName + "]";
+//	}
 
 }

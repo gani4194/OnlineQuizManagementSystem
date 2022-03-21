@@ -27,7 +27,6 @@ public class QuestionController {
 	private IQuestionService questionServices;
 
 	// requests the controller to get the list of Questions
-	// URL:-
 	// http://localhost:8082/OnlineQuiz/Question/getAllQuestion
 	@GetMapping("/getAllQuestion")
 	public ResponseEntity<List<Question>> getAllQuestion() {
@@ -40,6 +39,7 @@ public class QuestionController {
 	}
 
 	// requests the controller to get the Question by Question Number
+	// http://localhost:8082/OnlineQuiz/Question/getQuestion
 	@GetMapping("/getQuestion/{questionNo}")
 	public ResponseEntity<Question> findQuestion(@PathVariable("questionNo") Integer questionNo)
 			throws QuestionNoNotFoundException {
@@ -52,27 +52,26 @@ public class QuestionController {
 		}
 		throw new QuestionNoNotFoundException(
 				"Question with question no. " + questionNo + " mentioned not present in database");
-
 	}
 
 	// requests the controller to add the Question
+	// http://localhost:8082/OnlineQuiz/Question/addQuestion
 	@PostMapping("/addQuestion")
 	public ResponseEntity<Question> saveQuestion(@RequestBody Question question) {
 		question = questionServices.saveQuestion(question);
 		if (question == null) {
 			return new ResponseEntity("Sorry! Question not available!", HttpStatus.NOT_FOUND);
 		}
-
 		return new ResponseEntity<Question>(question, HttpStatus.OK);
 	}
 
 	// requests the controller to delete the Question by Question Number
+	// http://localhost:8082/OnlineQuiz/Question/deleteQuestion
 	@DeleteMapping("/deleteQuestion/{questionNo}")
 	public ResponseEntity<List<Question>> deleteQuestion(@PathVariable("questionNo") Integer questionNo) {
 		List<Question> question = questionServices.deleteQuestion(questionNo);
 		if (question.isEmpty() || question == null) {
 			return new ResponseEntity("Sorry! QuestionNo not available!", HttpStatus.NOT_FOUND);
-
 		}
 		return new ResponseEntity<List<Question>>(question, HttpStatus.OK);
 	}

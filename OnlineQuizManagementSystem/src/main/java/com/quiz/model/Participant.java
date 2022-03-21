@@ -8,7 +8,7 @@ import javax.persistence.Table;
 /**
  * The Class Participant is the Entity representing participates in database
  * 
- * @author Akash
+ * @author Akash Bagade
  *
  */
 
@@ -17,15 +17,15 @@ import javax.persistence.Table;
 public class Participant {
 	@Id
 	@Column(name = "participate_id")
-	private int participatesId;
+	private int participantId;
 
 	@Column(name = "participate_name")
-	private String participatesName;
-    
+	private String participantName;
+
 	/**
 	 * Participant default Constructor
 	 */
-	
+
 	public Participant() {
 
 	}
@@ -36,32 +36,30 @@ public class Participant {
 	 * @param participateId   the participant Id
 	 * @param participateName the name of participant
 	 */
-
-	public Participant(int participatesId, String participatesName) {
+	public Participant(int participantId, String participantName) {
 		super();
-		this.participatesId = participatesId;
-		this.participatesName = participatesName;
+		this.participantId = participantId;
+		this.participantName = participantName;
 	}
 
-	public int getParticipatesId() {
-		return participatesId;
+	public int getParticipantId() {
+		return participantId;
 	}
 
-	public void setParticipatesId(int participatesId) {
-		this.participatesId = participatesId;
+	public void setParticipantId(int participantId) {
+		this.participantId = participantId;
 	}
 
-	public String getParticipatesName() {
-		return participatesName;
+	public String getParticipantName() {
+		return participantName;
 	}
 
-	public void setParticipatesName(String participatesName) {
-		this.participatesName = participatesName;
+	public void setParticipantName(String participantName) {
+		this.participantName = participantName;
 	}
 
 	@Override
 	public String toString() {
-		return "Participates [participatesId=" + participatesId + ", participatesName=" + participatesName + "]";
+		return "Participant [participantId=" + participantId + ", participantName=" + participantName + "]";
 	}
-
 }

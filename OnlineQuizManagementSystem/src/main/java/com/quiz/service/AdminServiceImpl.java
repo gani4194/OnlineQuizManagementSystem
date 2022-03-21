@@ -45,10 +45,20 @@ public class AdminServiceImpl implements IAdminService {
 		}
 	}
 
+	@Override
+	public Admin loginAdmin(int adminId) throws AdminIdNotFoundException {
+		try {
+			Admin findById = adminRepo.findById(adminId).get();
+			return findById;
+		} catch (Exception e) {
+
+			throw new AdminIdNotFoundException("admin not found");
+		}
+	}
+
 	// method implementing to get all the Admins
 	@Override
 	public List<Admin> getAllAdmins() {
-// TODO Auto-generated method stub
 		return adminRepo.findAll();
 	}
 

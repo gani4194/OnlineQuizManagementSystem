@@ -8,7 +8,7 @@ import javax.persistence.Table;
 /**
  * The Class Admin is the Entity representing admin_table in database
  *
- * @author Maltesh
+ * @author Malatesh A
  *
  */
 @Entity

@@ -9,9 +9,9 @@ import com.quiz.model.Quiz;
 @Service
 public interface IQuizService {
 	public List<Quiz> getAllQuiz();
-	
+
 	public Quiz findQuiz(Integer quizId) throws QuizIdNotFoundException;
-	
+
 	public Quiz saveQuiz(Quiz quiz);
 
 }

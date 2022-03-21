@@ -10,11 +10,11 @@ import com.quiz.model.Question;
 @Service
 public interface IQuestionService {
 
-	public List<Question> getAllQuestion(); // get Q
+	public List<Question> getAllQuestion();
 
-	public Question findQuestion(Integer questionNo) throws QuestionNoNotFoundException; // find q by no
+	public Question findQuestion(Integer questionNo) throws QuestionNoNotFoundException;
 
-	public Question saveQuestion(Question question); // post Mapping
+	public Question saveQuestion(Question question);
 
 	public List<Question> deleteQuestion(Integer questionNo);
 

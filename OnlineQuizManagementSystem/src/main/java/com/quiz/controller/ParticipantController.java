@@ -24,55 +24,69 @@ public class ParticipantController {
 	@Autowired
 	private IParticipantService partServices;
 
-    // requests the controller to get all the Participants
-	// http://localhost:8082/OnlineQuiz/Participant/getAllParticipates
-
-	@GetMapping("/getAllParticipates")
-	public ResponseEntity<List<Participant>> getAllParticipates() {
-		List<Participant> participate = partServices.getAllParticipates();
-		if (participate.isEmpty()) {
-			return new ResponseEntity("Sorry! Participate not available!", HttpStatus.NOT_FOUND);
+	// requests the controller to get all the Participants
+	// http://localhost:8082/OnlineQuiz/Participant/getAllParticipant
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@GetMapping("/getAllParticipant")
+	public ResponseEntity<List<Participant>> getAllParticipant() {
+		List<Participant> participant = partServices.getAllParticipant();
+		if (participant.isEmpty()) {
+			return new ResponseEntity("Sorry! Participant not available!", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
+		return new ResponseEntity<List<Participant>>(participant, HttpStatus.OK);
 	}
 
 	// requests the controller to delete Participant by Participant Id
-	// #http://localhost:8082/OnlineQuiz/Participant/updateParticipant
-	@DeleteMapping("/deleteParticipant/{participatesId}")
-	public ResponseEntity<List<Participant>> deleteParticipates(@PathVariable("participatesId") Integer participatesId)
+	// http://localhost:8082/OnlineQuiz/Participant/updateParticipant
+	@DeleteMapping("/deleteParticipant/{participantId}")
+	public ResponseEntity<List<Participant>> deleteParticipant(@PathVariable("participantId") Integer participantId)
 			throws ParticipantIdNotFoundException {
-		List<Participant> existingParticipate = partServices.getAllParticipates(); // deleteParticipates(participatesId);
-		for (Participant i : existingParticipate) {
-			if (i.getParticipatesId() == participatesId) {
-				List<Participant> participate = partServices.deleteParticipates(participatesId);
-				return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
+		List<Participant> existingParticipant = partServices.getAllParticipant(); // deleteParticipates(participatesId);
+		for (Participant i : existingParticipant) {
+			if (i.getParticipantId() == participantId) {
+				List<Participant> participant = partServices.deleteParticipant(participantId);
+				return new ResponseEntity<List<Participant>>(participant, HttpStatus.OK);
 			}
 		}
-		throw new ParticipantIdNotFoundException("Participate not Present in database");
+		throw new ParticipantIdNotFoundException("Participant not Present in database");
 	}
 
-    // requests the controller to update Participant
-	// #http://localhost:8082/OnlineQuiz/Participant/updateParticipant
+	// requests the controller to update Participant
+	// http://localhost:8082/OnlineQuiz/Participant/updateParticipant
 	@PutMapping("/updateParticipant")
-	public ResponseEntity<List<Participant>> updateParticipates(@RequestBody Participant participates) {
-		List<Participant> participate = partServices.updateParticipates(participates);
-		if (participate.isEmpty()) {
-			return new ResponseEntity("Sorry! Participates not available!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Participant>> updateParticipant(@RequestBody Participant participant) {
+		List<Participant> participants = partServices.updateParticipant(participant);
+		if (participants.isEmpty()) {
+			return new ResponseEntity("Sorry! Participant not available!", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
+		return new ResponseEntity<List<Participant>>(participants, HttpStatus.OK);
 	}
 
 	// requests the controller to add Participant
-	// #http://localhost:8082/OnlineQuiz/Participant/addParticipant
+	// http://localhost:8082/OnlineQuiz/Participant/addParticipant
 	@PostMapping("/addParticipant")
-	public ResponseEntity<Participant> saveParticipates(@RequestBody Participant participates) {
-		Participant participate = partServices.saveParticipates(participates);
-		if (participate == null) {
-
-			return new ResponseEntity("Sorry! Participates not available!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<Participant> saveParticipant(@RequestBody Participant participant) {
+		Participant participants = partServices.saveParticipant(participant);
+		if (participants == null) {
+			return new ResponseEntity("Sorry! Participant not available!", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Participant>(participate, HttpStatus.OK);
+		return new ResponseEntity<Participant>(participants, HttpStatus.OK);
+	}
+
+	// requests the controller to log in Participant by Participant Id
+	// http://localhost:8082/OnlineQuiz/Participant/checklogin
+	@GetMapping("/checklogin/{participantId}")
+	public ResponseEntity<Participant> checkLogin(@PathVariable("participantId") int participant)
+			throws ParticipantIdNotFoundException {
+		Participant checklogin = partServices.loginParticipant(participant);
+		if (checklogin == null) {
+			return new ResponseEntity("Login Failed!", HttpStatus.NOT_FOUND);
+		} else if (checklogin.getParticipantId() == participant) {
+			return new ResponseEntity("Login Successful!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity("user is not a Participant", HttpStatus.NOT_FOUND);
+		}
 	}
 
 }
