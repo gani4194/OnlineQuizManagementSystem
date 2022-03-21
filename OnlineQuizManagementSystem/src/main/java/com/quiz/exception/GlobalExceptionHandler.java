@@ -15,7 +15,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-
 	@ExceptionHandler(AdminIdNotFoundException.class)
 	public ResponseEntity<Object> handleAdminIdNotFoundException(){
 		LOG.error("handleAdminIdNotFoundException");

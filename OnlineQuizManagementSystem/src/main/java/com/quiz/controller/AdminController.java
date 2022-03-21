@@ -19,7 +19,7 @@ import com.quiz.model.Admin;
 import com.quiz.service.IAdminService;
 
 @RestController
-@RequestMapping("/quiz")
+@RequestMapping("/Admin")
 public class AdminController {
 	@Autowired
 	IAdminService adminService;
@@ -42,18 +42,13 @@ public class AdminController {
 		return addAdmin;
 	}
 
-	@PutMapping("/update/{id}")
+	@PutMapping("/updateAdmin/{id}")
 	public String updateUser(@RequestBody Admin admin, @PathVariable int id) {
 		String updateAdmin = adminService.updateAdmin(admin, id);
 		return updateAdmin;
 	}
 
-//	@DeleteMapping("/delete/{id}")
-//	public String deleteUser(@PathVariable int id) throws AdminIdNotFoundException{
-//		String deleteAdmin = adminService.deleteAdmin(id);
-//		return deleteAdmin;
-//	}
-	@DeleteMapping("/Admin/{adminId}")
+	@DeleteMapping("/deleteAdmin/{adminId}")
 	public ResponseEntity<List<Admin>> deleteAdmin(@PathVariable("adminId") Integer adminId)
 			throws AdminIdNotFoundException {
 		List<Admin> existingAdmin = adminService.getAllAdmins();

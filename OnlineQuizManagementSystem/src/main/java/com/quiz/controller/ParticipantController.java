@@ -19,12 +19,12 @@ import com.quiz.model.Participant;
 import com.quiz.service.IParticipantService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/Participant")
 public class ParticipantController {
 	@Autowired
 	private IParticipantService partServices;
 
-	@GetMapping("/AllParticipates")
+	@GetMapping("/getAllParticipates")
 	public ResponseEntity<List<Participant>> getAllParticipates() {
 		List<Participant> participate = partServices.getAllParticipates();
 		if (participate.isEmpty()) {
@@ -33,7 +33,7 @@ public class ParticipantController {
 		return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/Participate/{participatesId}")
+	@DeleteMapping("/deleteParticipant/{participatesId}")
 	public ResponseEntity<List<Participant>> deleteParticipates(@PathVariable("participatesId") Integer participatesId) throws ParticipantIdNotFoundException {
 		List<Participant> existingParticipate = partServices.getAllParticipates();       //deleteParticipates(participatesId);
 		for(Participant i : existingParticipate) {
@@ -45,7 +45,7 @@ public class ParticipantController {
 		throw new ParticipantIdNotFoundException("Participate not Present in database");
 	}
 
-	@PutMapping("/Participate")
+	@PutMapping("/updateParticipant")
 	public ResponseEntity<List<Participant>> updateParticipates(@RequestBody Participant participates) {
 		List<Participant> participate = partServices.updateParticipates(participates);
 		if (participate.isEmpty()) {
@@ -55,7 +55,7 @@ public class ParticipantController {
 		return new ResponseEntity<List<Participant>>(participate, HttpStatus.OK);
 	}
     
-	@PostMapping("save/Participate")
+	@PostMapping("/addParticipant")
 	public ResponseEntity<Participant> saveParticipates(@RequestBody Participant participates)  {
 		Participant participate = partServices.saveParticipates(participates);
 		if (participate == null) {

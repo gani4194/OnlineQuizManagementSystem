@@ -18,12 +18,12 @@ import com.quiz.model.Categories;
 import com.quiz.service.ICategoriesService;
 
 @RestController
-@RequestMapping("/Categories")
+@RequestMapping("/Category")
 public class CategoriesController {
 	@Autowired
 	private ICategoriesService categoriesService;
 
-	@GetMapping("/getCategories")
+	@GetMapping("/getAllCategories")
 	public ResponseEntity<List<Categories>> getAllCategories() {
 		List<Categories> categories = categoriesService.getAllCategories();
 		if (categories.isEmpty()) {
@@ -33,7 +33,7 @@ public class CategoriesController {
 		return new ResponseEntity<List<Categories>>(categories, HttpStatus.OK);
 	}
 
-	@PostMapping("save/categories")
+	@PostMapping("/addCategory")
 	public ResponseEntity<Categories> saveCategories(@RequestBody Categories categories) {
 		categories = categoriesService.saveCategories(categories);
 		if (categories == null) {
@@ -43,7 +43,7 @@ public class CategoriesController {
 		return new ResponseEntity<Categories>(categories, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/categories/{categoriesId}")
+	@DeleteMapping("/deleteCategory/{categoriesId}")
 	public ResponseEntity<List<Categories>> deleteCategories(@PathVariable("categoriesId") Integer categoriesId) 
 			throws CategoryIdNotFoundException {
 		List<Categories> existingCategories = categoriesService.getAllCategories();

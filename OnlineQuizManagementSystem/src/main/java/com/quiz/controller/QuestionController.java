@@ -20,13 +20,13 @@ import com.quiz.model.Question;
 import com.quiz.service.IQuestionService;
 
 @RestController
-@RequestMapping("/get")   //question
+@RequestMapping("/Question")   //question
 public class QuestionController {
 
 	@Autowired
 	private IQuestionService questionServices;
 
-	@GetMapping("/AllQuestion")
+	@GetMapping("/getAllQuestion")
 	public ResponseEntity<List<Question>> getAllQuestion() {
 
 		List<Question> question = questionServices.getAllQuestion();
@@ -36,7 +36,7 @@ public class QuestionController {
 		return new ResponseEntity<List<Question>>(question, HttpStatus.OK);
 	}
 
-	@GetMapping("/Questions/{questionNo}")
+	@GetMapping("/getQuestion/{questionNo}")
 	public ResponseEntity<Question> findQuestion(@PathVariable("questionNo") Integer questionNo) throws QuestionNoNotFoundException {
 		List<Question> existingQuestion=questionServices.getAllQuestion();
 		for(Question i:existingQuestion) {
@@ -46,14 +46,10 @@ public class QuestionController {
 			}
 		}
 		throw new QuestionNoNotFoundException("Question with question no. " + questionNo + " mentioned not present in database");
-//		Question question = questionServices.findQuestion(questionNo);
-//		if (question == null) {
-//			return new ResponseEntity("Sorry! Question not found!", HttpStatus.NOT_FOUND);
-//		}
-//		return new ResponseEntity<Question>(question, HttpStatus.OK);
+
 	}
 
-	@PostMapping("save/Question")
+	@PostMapping("/addQuestion")
 	public ResponseEntity<Question> saveQuestion(@RequestBody Question question) {
 		question = questionServices.saveQuestion(question);
 		if (question == null) {
@@ -63,7 +59,7 @@ public class QuestionController {
 		return new ResponseEntity<Question>(question, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/Delete/{questionNo}")
+	@DeleteMapping("/deleteQuestion/{questionNo}")
 	public ResponseEntity<List<Question>> deleteQuestion(@PathVariable("questionNo") Integer questionNo) {
 		List<Question> question = questionServices.deleteQuestion(questionNo);
 		if (question.isEmpty() || question == null) {
