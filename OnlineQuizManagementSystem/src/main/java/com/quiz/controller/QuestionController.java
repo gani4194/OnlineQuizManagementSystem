@@ -39,7 +39,7 @@ public class QuestionController {
 	}
 
 	// requests the controller to get the Question by Question Number
-	// http://localhost:8082/OnlineQuiz/Question/getQuestion
+	// http://localhost:8082/OnlineQuiz/Question/getQuestion/
 	@GetMapping("/getQuestion/{questionNo}")
 	public ResponseEntity<Question> findQuestion(@PathVariable("questionNo") Integer questionNo)
 			throws QuestionNoNotFoundException {

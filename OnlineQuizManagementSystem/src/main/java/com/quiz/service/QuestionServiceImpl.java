@@ -18,7 +18,7 @@ public class QuestionServiceImpl implements IQuestionService {
 	private IQuestionRepository questionRepository;
 
 	// method implementing to get all the Questions
-	public List<Question> getAllQuestion() { // get all Q
+	public List<Question> getAllQuestion() { 
 		return questionRepository.findAll();
 	}
 

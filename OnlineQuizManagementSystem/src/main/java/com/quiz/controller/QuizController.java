@@ -23,7 +23,7 @@ public class QuizController {
 	private IQuizService partServices;
 
 	// requests the controller to get the list of Quiz
-	// http://localhost:8082/OnlineQuiz/Quiz/getAllQuiz
+	// http://localhost:8082/OnlineQuiz/Quiz/getAllQuizes
 	@GetMapping("/getAllQuizes")
 	public ResponseEntity<List<Quiz>> getAllQuiz() {
 
