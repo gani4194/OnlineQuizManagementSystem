@@ -1,6 +1,7 @@
 package com.quiz.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,16 @@ public class CategoriesServiceImpl implements ICategoriesService {
 		} catch (Exception e) {
 			throw new CategoryIdNotFoundException("Category is not present in Database");
 		}
+	}
+
+	public List<Categories> updateCategory(Categories categories) {
+		categoriesRepo.saveAndFlush(categories);
+		return categoriesRepo.findAll();
+	}
+
+	public Categories findCategory(Integer categoriesId) {
+		Optional<Categories> cat = categoriesRepo.findById(categoriesId);
+		return cat.get();
 	}
 
 }

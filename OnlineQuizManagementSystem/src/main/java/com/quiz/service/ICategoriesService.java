@@ -16,4 +16,8 @@ public interface ICategoriesService {
 	public List<Categories> getAllCategories();
 
 	public Categories saveCategories(Categories categories);
+
+	public List<Categories> updateCategory(Categories categories);
+
+	public Categories findCategory(Integer categoriesId);
 }

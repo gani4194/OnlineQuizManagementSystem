@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quiz.exception.ParticipantIdNotFoundException;
+import com.quiz.exception.ParticipantNotFoundException;
 import com.quiz.model.Participant;
 import com.quiz.service.IParticipantService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/Participant")
 public class ParticipantController {
@@ -25,9 +28,9 @@ public class ParticipantController {
 	private IParticipantService partServices;
 
 	// requests the controller to get all the Participants
-	// http://localhost:8082/OnlineQuiz/Participant/getAllParticipant
+	// http://localhost:8082/OnlineQuiz/Participant/Participants
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@GetMapping("/getAllParticipant")
+	@GetMapping("/Participants")
 	public ResponseEntity<List<Participant>> getAllParticipant() {
 		List<Participant> participant = partServices.getAllParticipant();
 		if (participant.isEmpty()) {
@@ -53,7 +56,7 @@ public class ParticipantController {
 
 	// requests the controller to update Participant
 	// http://localhost:8082/OnlineQuiz/Participant/updateParticipant
-	@PutMapping("/updateParticipant")
+	@PutMapping("/updateParticipant/{participantId}")
 	public ResponseEntity<List<Participant>> updateParticipant(@RequestBody Participant participant) {
 		List<Participant> participants = partServices.updateParticipant(participant);
 		if (participants.isEmpty()) {
@@ -87,6 +90,29 @@ public class ParticipantController {
 		} else {
 			return new ResponseEntity("user is not a Participant", HttpStatus.NOT_FOUND);
 		}
+	}
+
+	// http://localhost:8082/OnlineQuiz/Participant/participantlogin
+	@PostMapping("/participantlogin")
+	public ResponseEntity checkLogin(@RequestBody Participant participant) throws ParticipantNotFoundException {
+		String checklogin = partServices.checkParticipant(participant);
+		if (checklogin == null) {
+			return new ResponseEntity("Login Failed!", HttpStatus.NOT_FOUND);
+		} else if (checklogin.equals(participant.getParticipantName())) {
+			return new ResponseEntity("Login Successful!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity("Login Failed!", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// http://localhost:8082/OnlineQuiz/Participant/ParticipantId/
+	@GetMapping("ParticipantId/{participantId}") // newly added
+	public ResponseEntity<Participant> findParticipant(@PathVariable("participantId") Integer participantId) {
+		Participant participant = partServices.findParticipant(participantId);
+		if (participant == null) {
+			return new ResponseEntity("Sorry! Participant not found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Participant>(participant, HttpStatus.OK);
 	}
 
 }

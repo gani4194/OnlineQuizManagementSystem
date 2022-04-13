@@ -18,7 +18,7 @@ public class QuestionServiceImpl implements IQuestionService {
 	private IQuestionRepository questionRepository;
 
 	// method implementing to get all the Questions
-	public List<Question> getAllQuestion() { 
+	public List<Question> getAllQuestion() {
 		return questionRepository.findAll();
 	}
 
@@ -40,6 +40,11 @@ public class QuestionServiceImpl implements IQuestionService {
 
 	public Question saveQuestion(Question question) {
 		return questionRepository.save(question);
+	}
+
+	public List<Question> updateQuestion(Question question) {
+		questionRepository.saveAndFlush(question);
+		return questionRepository.findAll();
 	}
 
 }

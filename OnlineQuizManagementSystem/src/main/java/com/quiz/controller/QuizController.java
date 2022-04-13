@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.quiz.exception.QuizIdNotFoundException;
 import com.quiz.model.Quiz;
 import com.quiz.service.IQuizService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/Quiz")
 public class QuizController {
@@ -23,8 +25,8 @@ public class QuizController {
 	private IQuizService partServices;
 
 	// requests the controller to get the list of Quiz
-	// http://localhost:8082/OnlineQuiz/Quiz/getAllQuizes
-	@GetMapping("/getAllQuizes")
+	// http://localhost:8082/OnlineQuiz/Quiz/Quizes
+	@GetMapping("/Quizes")
 	public ResponseEntity<List<Quiz>> getAllQuiz() {
 
 		List<Quiz> quiz = partServices.getAllQuiz();

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quiz.exception.AdminIdNotFoundException;
+import com.quiz.exception.AdminNotFoundException;
 import com.quiz.model.Admin;
 import com.quiz.service.IAdminService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/Admin")
 public class AdminController {
@@ -25,8 +28,8 @@ public class AdminController {
 	IAdminService adminService;
 
 	// requests the controller to get all the Admin
-	// http://localhost:8082/OnlineQuiz/Admin/getAllAdmins
-	@GetMapping("/getAllAdmins")
+	// http://localhost:8082/OnlineQuiz/Admin/Admins
+	@GetMapping("/Admins")
 	public ResponseEntity<List<Admin>> getAllAdmins() {
 
 		List<Admin> admin = adminService.getAllAdmins();
@@ -65,18 +68,30 @@ public class AdminController {
 		}
 		throw new AdminIdNotFoundException("Admin not Present in database");
 	}
-
-	// requests the controller to log in Admin by Id
+	
 	// http://localhost:8082/OnlineQuiz/Admin/checklogin
-	@GetMapping("/checklogin/{adminId}")
-	public ResponseEntity<Admin> checkLogin(@PathVariable("adminId") int admin) throws AdminIdNotFoundException {
-		Admin checklogin = adminService.loginAdmin(admin);
+	@PostMapping("/adminlogin")
+	public ResponseEntity checkLogin(@RequestBody Admin admin) throws AdminNotFoundException {
+		String checklogin = adminService.checkAdmin(admin);
 		if (checklogin == null) {
 			return new ResponseEntity("Login Failed!", HttpStatus.NOT_FOUND);
-		} else if (checklogin.getAdminId() == admin) {
+		} else if (checklogin.equals(admin.getAdminName())) {
 			return new ResponseEntity("Login Successful!", HttpStatus.OK);
 		} else {
-			return new ResponseEntity("user is not an admin", HttpStatus.NOT_FOUND);
+			return new ResponseEntity("Login Failed!", HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	// http://localhost:8082/OnlineQuiz/Admin/admin
+	@GetMapping("/admin/{adminId}")
+	public ResponseEntity<Admin>findAdmin(@PathVariable("adminId") Integer adminId){
+	Admin admin=adminService.findAdmin(adminId);
+	if(admin==null) {
+	return new ResponseEntity("Sorry! Admin not found!", HttpStatus.NOT_FOUND);
+	}
+	return new ResponseEntity<Admin>(admin,HttpStatus.OK);
+	}
+	
+	
+
 }

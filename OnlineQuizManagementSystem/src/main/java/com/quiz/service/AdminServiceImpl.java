@@ -1,12 +1,14 @@
 package com.quiz.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.quiz.dao.IAdminRepository;
 import com.quiz.exception.AdminIdNotFoundException;
+import com.quiz.exception.AdminNotFoundException;
 import com.quiz.model.Admin;
 
 @Service
@@ -61,5 +63,23 @@ public class AdminServiceImpl implements IAdminService {
 	public List<Admin> getAllAdmins() {
 		return adminRepo.findAll();
 	}
+	
+	@Override
+	public String checkAdmin(Admin admin) throws AdminNotFoundException {
+		try {
+			String checkAdmin = adminRepo.getAdmin(admin.getAdminName(), admin.getAdminPassword());
+			System.out.println(checkAdmin);
+			return checkAdmin;
+		} catch (Exception e) {
+			throw new AdminNotFoundException("Admin not found");
+		}
+	}
+	
+	public Admin findAdmin(Integer adminId) {
+		Optional<Admin>adm=adminRepo.findById(adminId);
+		return adm.get();
+		}
+	
+	
 
 }

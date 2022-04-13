@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import com.quiz.exception.QuestionNoNotFoundException;
 import com.quiz.model.Question;
 import com.quiz.service.IQuestionService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/Question") // question
 public class QuestionController {
@@ -27,8 +29,8 @@ public class QuestionController {
 	private IQuestionService questionServices;
 
 	// requests the controller to get the list of Questions
-	// http://localhost:8082/OnlineQuiz/Question/getAllQuestion
-	@GetMapping("/getAllQuestion")
+	// http://localhost:8082/OnlineQuiz/Question/Questions
+	@GetMapping("/Questions")
 	public ResponseEntity<List<Question>> getAllQuestion() {
 
 		List<Question> question = questionServices.getAllQuestion();
@@ -74,6 +76,17 @@ public class QuestionController {
 			return new ResponseEntity("Sorry! QuestionNo not available!", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Question>>(question, HttpStatus.OK);
+	}
+	
+	// requests the controller to delete the Question by Question Number
+	// http://localhost:8082/OnlineQuiz/Question/updateQuestion/
+	@PutMapping("/updateQuestion/{questionNo}")
+	public ResponseEntity<List<Question>> updateQuestion(@RequestBody Question question) {
+		List<Question> questions = questionServices.updateQuestion(question);
+		if (questions.isEmpty()) {
+			return new ResponseEntity("Sorry! Question is not available!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
 	}
 
 }

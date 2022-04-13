@@ -17,5 +17,9 @@ public interface IQuestionService {
 	public Question saveQuestion(Question question);
 
 	public List<Question> deleteQuestion(Integer questionNo);
+	
+	public List<Question> updateQuestion(Question question);
+	
+
 
 }

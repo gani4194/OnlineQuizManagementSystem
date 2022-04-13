@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.quiz.exception.ParticipantIdNotFoundException;
+import com.quiz.exception.ParticipantNotFoundException;
 import com.quiz.model.Participant;
 
 @Service
@@ -17,5 +18,9 @@ public interface IParticipantService {
 	public Participant saveParticipant(Participant participant);
 
 	public Participant loginParticipant(int participantId) throws ParticipantIdNotFoundException;
+
+	public String checkParticipant(Participant participant) throws ParticipantNotFoundException;
+	
+	public Participant findParticipant(Integer participantId); 
 
 }

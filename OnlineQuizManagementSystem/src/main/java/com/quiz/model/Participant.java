@@ -7,20 +7,23 @@ import javax.persistence.Table;
 
 /**
  * The Class Participant is the Entity representing participates in database
- * 
+ *
  * @author Akash Bagade
  *
  */
 
 @Entity
-@Table(name = "participates")
+@Table(name = "participants")
 public class Participant {
 	@Id
-	@Column(name = "participate_id")
+	@Column(name = "participant_id")
 	private int participantId;
 
-	@Column(name = "participate_name")
+	@Column(name = "participant_name")
 	private String participantName;
+
+	@Column(name = "participant_pass")
+	private String participantPass;
 
 	/**
 	 * Participant default Constructor
@@ -32,14 +35,15 @@ public class Participant {
 
 	/**
 	 * Participant Constructor with fields as parameters
-	 * 
+	 *
 	 * @param participateId   the participant Id
 	 * @param participateName the name of participant
 	 */
-	public Participant(int participantId, String participantName) {
+	public Participant(int participantId, String participantName, String participantPass) {
 		super();
 		this.participantId = participantId;
 		this.participantName = participantName;
+		this.participantPass = participantPass;
 	}
 
 	public int getParticipantId() {
@@ -58,8 +62,18 @@ public class Participant {
 		this.participantName = participantName;
 	}
 
+	public String getParticipantPass() {
+		return participantPass;
+	}
+
+	public void setParticipantPass(String participantPass) {
+		this.participantPass = participantPass;
+	}
+
 	@Override
 	public String toString() {
-		return "Participant [participantId=" + participantId + ", participantName=" + participantName + "]";
+		return "Participant [participantId=" + participantId + ", participantName=" + participantName
+				+ ", participantPass=" + participantPass + "]";
 	}
+
 }

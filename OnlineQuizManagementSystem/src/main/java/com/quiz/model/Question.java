@@ -3,16 +3,16 @@ package com.quiz.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * The Class Question is the Entity representing questions_table in database
- *
+ * The Class Question is the Entity representing categories_table in database
+ * 
  * @author Ganesh Pawar
  *
  */
-
 @Entity
 @Table(name = "questions_table")
 public class Question {
@@ -21,7 +21,7 @@ public class Question {
 	private int questionNo;
 
 	@Column(name = "category_id")
-	private int categeoryId;
+	private int category;
 
 	@Column(name = "question_title")
 	private String questionTitle;
@@ -47,30 +47,15 @@ public class Question {
 	/**
 	 * Question default Constructor
 	 */
-
 	public Question() {
 
 	}
 
-	/**
-	 * Participant Constructor with fields as parameters
-	 * 
-	 * @param questionNo    the question No
-	 * @param categeoryId   the Category Id
-	 * @param questionTitle the Question Title
-	 * @param option1       the Question Option
-	 * @param option2       the Question Option
-	 * @param option3       the Question Option
-	 * @param option4       the Question Option
-	 * @param correctAnswer the Question Correct Answer
-	 * @param qMarks        the Question Marks
-	 */
-
-	public Question(int questionNo, int categeoryId, String questionTitle, String option1, String option2,
-			String option3, String option4, String correctAnswer, int qMarks) {
+	public Question(int questionNo, int category, String questionTitle, String option1, String option2, String option3,
+			String option4, String correctAnswer, int qMarks) {
 		super();
 		this.questionNo = questionNo;
-		this.categeoryId = categeoryId;
+		this.category = category;
 		this.questionTitle = questionTitle;
 		this.option1 = option1;
 		this.option2 = option2;
@@ -88,12 +73,12 @@ public class Question {
 		this.questionNo = questionNo;
 	}
 
-	public int getCategeoryId() {
-		return categeoryId;
+	public int getCategory() {
+		return category;
 	}
 
-	public void setCategeoryId(int categeoryId) {
-		this.categeoryId = categeoryId;
+	public void setCategory(int category) {
+		this.category = category;
 	}
 
 	public String getQuestionTitle() {
@@ -154,9 +139,9 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [questionNo=" + questionNo + ", categeoryId=" + categeoryId + ", questionTitle="
-				+ questionTitle + ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3
-				+ ", option4=" + option4 + ", correctAnswer=" + correctAnswer + ", qMarks=" + qMarks + "]";
+		return "Question [questionNo=" + questionNo + ", category=" + category + ", questionTitle=" + questionTitle
+				+ ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4
+				+ ", correctAnswer=" + correctAnswer + ", qMarks=" + qMarks + "]";
 	}
 
 }

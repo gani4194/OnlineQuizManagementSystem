@@ -46,4 +46,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>("This Quiz ID Not Available Database..!", HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(AdminNotFoundException.class)
+	public ResponseEntity<Object> handleAdminNotFoundException() {
+		LOG.error("inside AdminNotFoundException");
+		return new ResponseEntity<Object>("Admin Not Found!", HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(ParticipantNotFoundException.class)
+	public ResponseEntity<Object> handleParticipantNotFoundException() {
+		LOG.error("inside ParticipantNotFoundException");
+		return new ResponseEntity<Object>("Participant Not Found!", HttpStatus.NOT_FOUND);
+	}
+	
 }
